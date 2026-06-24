@@ -1,0 +1,49 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+venv/
+env/
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data - Comment out if you want to push small sample data
+# data/*.csv
+# data/*.xlsx
+# data/*.json
+
+# Models saved during training
+models/
+*.pkl
+*.joblib
+*.h5
+*.pth
+*.pt
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Large files (if any)
+*.zip
+*.tar.gz
+*.rar
+
+# Reports (optional - usually generated files)
+# reports/*.pdf
+# reports/*.docx

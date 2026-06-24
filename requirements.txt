@@ -1,0 +1,28 @@
+# Requirements - Machine Learning Project
+# Install: pip install -r requirements.txt
+
+# Core
+numpy>=1.21.0
+pandas>=1.3.0
+scikit-learn>=1.0.0
+
+# Visualization
+matplotlib>=3.4.0
+seaborn>=0.11.0
+
+# Jupyter
+jupyter>=1.0.0
+ipykernel>=6.0.0
+
+# Utilities
+tqdm>=4.62.0
+openpyxl>=3.0.0  # For Excel files
+xlrd>=2.0.1      # For older Excel files
+
+# Optional - Deep Learning (uncomment if needed)
+# tensorflow>=2.6.0
+# torch>=1.10.0
+
+# Optional - Advanced ML (uncomment if needed)
+# xgboost>=1.5.0
+# lightgbm>=3.3.0
