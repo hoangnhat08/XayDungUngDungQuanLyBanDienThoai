@@ -1,0 +1,120 @@
+CREATE DATABASE QuanLyBanQuanAo;
+GO
+
+USE QuanLyBanQuanAo;
+GO
+
+-- 1. Danh mục
+CREATE TABLE DanhMuc
+(
+    MaDanhMuc INT IDENTITY(1,1) PRIMARY KEY,
+    TenDanhMuc NVARCHAR(100)
+);
+GO
+
+-- 2. Sản phẩm
+CREATE TABLE SanPham
+(
+    MaSanPham INT IDENTITY(1,1) PRIMARY KEY,
+    MaDanhMuc INT NOT NULL,
+    TenSanPham NVARCHAR(200),
+    SoLuong INT CHECK(SoLuong >= 0),
+    GiaBan FLOAT CHECK(GiaBan >= 0),
+    MauSac NVARCHAR(50),
+    Size NVARCHAR(20),
+
+    CONSTRAINT FK_SanPham_DanhMuc
+        FOREIGN KEY (MaDanhMuc)
+        REFERENCES DanhMuc(MaDanhMuc)
+);
+GO
+
+-- 3. Loại tài khoản
+CREATE TABLE LoaiTaiKhoan
+(
+    MaLoaiTaiKhoan INT IDENTITY(1,1) PRIMARY KEY,
+    TenLoaiTaiKhoan NVARCHAR(50),
+    MoTa NVARCHAR(255)
+);
+GO
+
+-- 4. Tài khoản
+CREATE TABLE TaiKhoan
+(
+    MaTaiKhoan INT IDENTITY(1,1) PRIMARY KEY,
+    MaLoaiTaiKhoan INT NOT NULL,
+    TenTaiKhoan VARCHAR(50) UNIQUE,
+    MatKhau VARCHAR(255),
+
+    CONSTRAINT FK_TaiKhoan_LoaiTaiKhoan
+        FOREIGN KEY (MaLoaiTaiKhoan)
+        REFERENCES LoaiTaiKhoan(MaLoaiTaiKhoan)
+);
+GO
+
+-- 5. Nhân viên
+CREATE TABLE NhanVien
+(
+    MaNV INT IDENTITY(1,1) PRIMARY KEY,
+    MaTaiKhoan INT,
+    TenNV NVARCHAR(100),
+    DiaChi NVARCHAR(255),
+    SDT VARCHAR(10),
+    Email VARCHAR(100),
+    CMND VARCHAR(12) NOT NULL,
+
+    CONSTRAINT FK_NhanVien_TaiKhoan
+        FOREIGN KEY (MaTaiKhoan)
+        REFERENCES TaiKhoan(MaTaiKhoan)
+);
+GO
+
+-- 6. Khách hàng
+CREATE TABLE KhachHang
+(
+    MaKhachHang INT IDENTITY(1,1) PRIMARY KEY,
+    TenKhachHang NVARCHAR(100),
+    DiaChi NVARCHAR(255),
+    SDT VARCHAR(10),
+    Email VARCHAR(100),
+    GioiTinh NVARCHAR(10) NOT NULL
+);
+GO
+
+-- 7. Hóa đơn bán
+CREATE TABLE HoaDonBan
+(
+    MaHoaDon INT IDENTITY(1,1) PRIMARY KEY,
+    NgayBan DATETIME DEFAULT GETDATE(),
+    ThanhTien FLOAT CHECK(ThanhTien >= 0),
+    MaKhachHang INT,
+    SDT VARCHAR(10),
+    Email VARCHAR(100),
+    DiaChiGH NVARCHAR(255),
+
+    CONSTRAINT FK_HoaDonBan_KhachHang
+        FOREIGN KEY (MaKhachHang)
+        REFERENCES KhachHang(MaKhachHang)
+);
+GO
+
+-- 8. Chi tiết hóa đơn bán
+CREATE TABLE ChiTietHoaDonBan
+(
+    MaChiTietHoaDon INT IDENTITY(1,1) PRIMARY KEY,
+    MaHoaDon INT NOT NULL,
+    MaSanPham INT NOT NULL,
+    NgayBan DATETIME,
+    SoLuong INT CHECK(SoLuong > 0),
+    GiaBan FLOAT CHECK(GiaBan > 0),
+    TongTien FLOAT CHECK(TongTien > 0),
+
+    CONSTRAINT FK_CTHDB_HoaDonBan
+        FOREIGN KEY (MaHoaDon)
+        REFERENCES HoaDonBan(MaHoaDon),
+
+    CONSTRAINT FK_CTHDB_SanPham
+        FOREIGN KEY (MaSanPham)
+        REFERENCES SanPham(MaSanPham)
+);
+GO
