@@ -14,8 +14,3 @@
 7. Kết quả đạt được
 8. Kết luận & Hướng phát triển
 9. Tài liệu tham khảo
-
-## Hướng dẫn:
-1. Đặt file báo cáo vào thư mục này
-2. Đặt tên theo chuẩn: `BaoCao_Nhom17_10123242.pdf`
-3. Commit và push lên GitHub
